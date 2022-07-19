@@ -76,7 +76,6 @@ function tickets() {
 
 function findTicket(id) {
     const result = ticketFull.find(ticket => ticket.id === id);
-    console.log(id);
     return result;
 }
 
@@ -84,7 +83,7 @@ app.use(async ctx =>{
     const params = new URLSearchParams(ctx.request.querystring);
     const obj = { method: params.get('method'), id: params.get('id')};
     const { method, id } = obj;
-    const { body } = ctx.request;
+    const  {body}  = ctx.request;
     switch (method) {
         case 'allTickets':
             ctx.response.body = tickets();
@@ -99,7 +98,7 @@ app.use(async ctx =>{
             ticketFull.push(new TicketFull (nextId, body.title, body.description, false, new Date().toString().slice(4,21)));
             ctx.response.body = ticketFull[nextId];
             return;
-        case 'editTiket':
+        case 'editTicket':
             const index = body.id;
             ticketFull[index].name = body.title;
             ticketFull[index].description = body.description;
